@@ -1,0 +1,1452 @@
+See the Assessment Guide for information on how to interpret this report.
+
+ASSESSMENT SUMMARY
+
+Compilation:  PASSED
+API:          FAILED (1 error)
+
+Spotbugs:     PASSED
+PMD:          FAILED (7 warnings)
+Checkstyle:   FAILED (0 errors, 11 warnings)
+
+Correctness:  11/40 tests passed
+Memory:       No tests available for autograding.
+Timing:       No tests available for autograding.
+
+Aggregate score: 29.75%
+[ Compilation: 5%, API: 5%, Style: 0%, Correctness: 90% ]
+
+ASSESSMENT DETAILS
+
+The following files were submitted:
+----------------------------------
+2.3K Sep 23 14:39 Huntingtons.java
+4.2K Sep 23 14:39 KernelFilter.java
+
+
+********************************************************************************
+*  COMPILING
+********************************************************************************
+
+
+% javac Huntingtons.java
+*-----------------------------------------------------------
+
+% javac KernelFilter.java
+*-----------------------------------------------------------
+
+
+================================================================
+
+
+Checking the APIs of your programs.
+*-----------------------------------------------------------
+Huntingtons:
+
+KernelFilter:
+The following methods are missing:
+  * public static Picture gaussian(Picture)
+
+The following methods must either be removed or made private:
+  * public static Picture Gaussian(Picture)
+
+
+================================================================
+
+
+********************************************************************************
+*  CHECKING STYLE AND COMMON BUG PATTERNS
+********************************************************************************
+
+
+% spotbugs *.class
+*-----------------------------------------------------------
+M D DLS_DEAD_LOCAL_STORE DLS: Assigns a value to the local variable 'e' but that value is never used.  At KernelFilter.java:[line 107]
+
+
+================================================================
+
+
+% pmd .
+*-----------------------------------------------------------
+KernelFilter.java:61: Too many control variables in the for statement [ForLoopVariableCount]
+KernelFilter.java:62: Too many control variables in the for statement [ForLoopVariableCount]
+KernelFilter.java:64: Avoid reassigning the loop control variable 's' [AvoidReassigningLoopVariables]
+KernelFilter.java:67: Avoid reassigning the loop control variable 's' [AvoidReassigningLoopVariables]
+KernelFilter.java:70: Avoid reassigning the loop control variable 'e' [AvoidReassigningLoopVariables]
+KernelFilter.java:73: Avoid reassigning the loop control variable 'e' [AvoidReassigningLoopVariables]
+KernelFilter.java:107: Avoid unused local variables, such as 'e'. [UnusedLocalVariable]
+PMD ends with 7 warnings.
+
+
+================================================================
+
+
+% checkstyle *.java
+*-----------------------------------------------------------
+[WARN] Huntingtons.java:74:11: '//' or '/*' is not followed by whitespace. [WhitespaceAfter]
+[WARN] KernelFilter.java:11:27: The method 'Gaussian' must start with a lowercase letter and use camelCase. [MethodName]
+[WARN] KernelFilter.java:62:30: Do not use the letter 'l' as a local variable name. It is hard to distinguish from the number '1'. [LocalVariableName]
+[WARN] KernelFilter.java:64:31: Control variable 's' is modified inside loop. [ModifiedControlVariable]
+[WARN] KernelFilter.java:67:31: Control variable 's' is modified inside loop. [ModifiedControlVariable]
+[WARN] KernelFilter.java:70:31: Control variable 'e' is modified inside loop. [ModifiedControlVariable]
+[WARN] KernelFilter.java:73:31: Control variable 'e' is modified inside loop. [ModifiedControlVariable]
+[WARN] KernelFilter.java:75:27: '//' or '/*' is not followed by whitespace. [WhitespaceAfter]
+Checkstyle ends with 0 errors and 8 warnings.
+
+% custom checkstyle checks for Huntingtons.java
+*-----------------------------------------------------------
+
+% custom checkstyle checks for KernelFilter.java
+*-----------------------------------------------------------
+[WARN] KernelFilter.java:97:24: The 'main()' method must directly call the public method 'motionBlur()'. [MainCallsAllPublicMethods]
+[WARN] KernelFilter.java:101:27: Do not print to standard output in this program. [SideEffect]
+[WARN] KernelFilter.java:102:27: Do not print to standard output in this program. [SideEffect]
+Checkstyle ends with 0 errors and 3 warnings.
+
+
+================================================================
+
+
+********************************************************************************
+*  TESTING CORRECTNESS
+********************************************************************************
+
+Testing correctness of Huntingtons
+*-----------------------------------------------------------
+Running 10 total tests.
+
+Test 1: check output format of main() for inputs from assignment specification
+  % java-introcs Huntingtons repeats4.txt
+  max repeats = 4
+  not human
+
+  % java-introcs Huntingtons repeats64.txt
+  max repeats = 64
+  Huntington's
+
+  % java-introcs Huntingtons chromosome4-hd.txt
+  max repeats = 79
+  Huntington's
+
+  % java-introcs Huntingtons chromosome4-healthy.txt
+  max repeats = 19
+  normal
+
+==> passed
+
+Test 2: check correctness of main() for inputs from assignment specification
+  % java-introcs Huntingtons repeats4.txt
+  % java-introcs Huntingtons repeats64.txt
+  % java-introcs Huntingtons chromosome4-hd.txt
+  % java-introcs Huntingtons chromosome4-healthy.txt
+==> passed
+
+Test 3: check maxRepeats() for DNA from files (with whitespace removed)
+  * file = repeats0.txt
+  * file = repeats2.txt
+  * file = repeats4.txt
+  * file = repeats9.txt
+  * file = repeats10.txt
+  * file = repeats12.txt
+  * file = repeats35.txt
+  * file = repeats36.txt
+  * file = repeats39.txt
+  * file = repeats40.txt
+  * file = repeats64.txt
+  * file = repeats180.txt
+  * file = repeats181.txt
+==> passed
+
+Test 4: check maxRepeats() for DNA from files (with whitespace removed)
+  * file = chromosome4-hd.txt
+  * file = chromosome4-healthy.txt
+==> passed
+
+Test 5: check maxRepeats() for random DNA of length n
+  * 10000 random strings of length 10
+  * 10000 random strings of length 20
+  * 10000 random strings of length 30
+  * 10000 random strings of length 100
+  * 10000 random strings of length 200
+  * 10000 random strings of length 500
+==> passed
+
+Test 6: check removeWhitespace() for inputs from files
+  * file = repeats0.txt
+  * file = repeats2.txt
+  * file = repeats4.txt
+  * file = repeats9.txt
+  * file = repeats10.txt
+  * file = repeats12.txt
+  * file = repeats35.txt
+  * file = repeats36.txt
+  * file = repeats39.txt
+  * file = repeats40.txt
+  * file = repeats64.txt
+  * file = repeats180.txt
+  * file = repeats181.txt
+==> passed
+
+Test 7: check removeWhitespace() for DNA from files
+  * file = chromosome4-hd.txt
+  * file = chromosome4-healthy.txt
+==> passed
+
+Test 8: check maxRepeats() for random DNA of length n
+  * 10000 random strings of length 10 over alphabet { 'A', 'C', 'G', 'T' }
+  * 10000 random strings of length 10 over alphabet { 'A', 'C', 'G', 'T', ' ' }
+  * 10000 random strings of length 10 over alphabet { 'A', 'C', 'G', 'T', ' ', '\n' }
+  * 10000 random strings of length 10 over alphabet { 'A', 'C', 'G', 'T', ' ', '\n', '\t' }
+  * 10000 random strings of length 20 over alphabet { 'A', 'C', 'G', 'T' }
+  * 10000 random strings of length 20 over alphabet { 'A', 'C', 'G', 'T', ' ' }
+  * 10000 random strings of length 20 over alphabet { 'A', 'C', 'G', 'T', ' ', '\n' }
+  * 10000 random strings of length 20 over alphabet { 'A', 'C', 'G', 'T', ' ', '\n', '\t' }
+  * 10000 random strings of length 100 over alphabet { 'A', 'C', 'G', 'T' }
+  * 10000 random strings of length 100 over alphabet { 'A', 'C', 'G', 'T', ' ' }
+  * 10000 random strings of length 100 over alphabet { 'A', 'C', 'G', 'T', ' ', '\n' }
+  * 10000 random strings of length 100 over alphabet { 'A', 'C', 'G', 'T', ' ', '\n', '\t' }
+==> passed
+
+Test 9: check diagnose() for given value of maxRepeats
+  * maxRepeats = 0
+  * maxRepeats = 9
+  * maxRepeats = 10
+  * maxRepeats = 35
+  * maxRepeats = 36
+  * maxRepeats = 39
+  * maxRepeats = 40
+  * maxRepeats = 180
+  * maxRepeats = 181
+==> passed
+
+Test 10: check diagnose() for range of values of maxRepeats
+  * 0 to 9
+  * 10 to 35
+  * 36 to 39
+  * 40 to 180
+  * 180 to 1000
+==> passed
+
+
+Huntingtons Total: 10/10 tests passed!
+
+
+================================================================
+Testing correctness of KernelFilter
+*-----------------------------------------------------------
+Running 30 total tests.
+
+Test 1: check correctness of identity() for given grayscale PNG files
+  * 6-by-5.png
+
+    java.lang.IllegalArgumentException: row index must be between 0 and 4: 5
+
+    Picture.validateRowIndex(Picture.java:434)
+    Picture.get(Picture.java:332)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.identity(KernelFilter.java:22)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:70)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterPNG(TestKernelFilter.java:209)
+    TestKernelFilter.testCorrectnessGrayscalePNG(TestKernelFilter.java:289)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:335)
+    TestKernelFilter.main(TestKernelFilter.java:368)
+
+
+    - student identity() returns null
+
+  * baboon-gray.png
+  * sunflowers-gray.png
+
+    java.lang.IllegalArgumentException: row index must be between 0 and 91: 149
+
+    Picture.validateRowIndex(Picture.java:434)
+    Picture.get(Picture.java:332)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.identity(KernelFilter.java:22)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:70)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterPNG(TestKernelFilter.java:209)
+    TestKernelFilter.testCorrectnessGrayscalePNG(TestKernelFilter.java:291)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:335)
+    TestKernelFilter.main(TestKernelFilter.java:368)
+
+
+    - student identity() returns null
+
+  * earth-gray.png
+  * penguins-gray.png
+
+    java.lang.IllegalArgumentException: row index must be between 0 and 199: 300
+
+    Picture.validateRowIndex(Picture.java:434)
+    Picture.get(Picture.java:332)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.identity(KernelFilter.java:22)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:70)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterPNG(TestKernelFilter.java:209)
+    TestKernelFilter.testCorrectnessGrayscalePNG(TestKernelFilter.java:293)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:335)
+    TestKernelFilter.main(TestKernelFilter.java:368)
+
+
+    - student identity() returns null
+
+==> FAILED
+
+Test 2: check correctness of identity() for given color PNG files
+  * baboon.png
+  * baboon-red.png
+  * baboon-green.png
+  * baboon-blue.png
+  * sunflowers.png
+
+    java.lang.IllegalArgumentException: row index must be between 0 and 91: 149
+
+    Picture.validateRowIndex(Picture.java:434)
+    Picture.get(Picture.java:332)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.identity(KernelFilter.java:22)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:70)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterPNG(TestKernelFilter.java:209)
+    TestKernelFilter.testCorrectnessColorPNG(TestKernelFilter.java:304)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:336)
+    TestKernelFilter.main(TestKernelFilter.java:368)
+
+
+    - student identity() returns null
+
+  * earth.png
+  * penguins.png
+
+    java.lang.IllegalArgumentException: row index must be between 0 and 199: 300
+
+    Picture.validateRowIndex(Picture.java:434)
+    Picture.get(Picture.java:332)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.identity(KernelFilter.java:22)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:70)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterPNG(TestKernelFilter.java:209)
+    TestKernelFilter.testCorrectnessColorPNG(TestKernelFilter.java:306)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:336)
+    TestKernelFilter.main(TestKernelFilter.java:368)
+
+
+    - student identity() returns null
+
+==> FAILED
+
+Test 3: check correctness of identity() for random grayscale pictures
+  * 1000 random 9-by-9 grayscale images
+  * 1000 random 5-by-8 grayscale images
+
+    java.lang.IllegalArgumentException: column index must be between 0 and 4: 7
+
+    Picture.validateColumnIndex(Picture.java:439)
+    Picture.get(Picture.java:331)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.identity(KernelFilter.java:22)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:70)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterRandomGrayscalePicture(TestKernelFilter.java:220)
+    TestKernelFilter.testCorrectnessRandomGrayscalePicture(TestKernelFilter.java:315)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:337)
+    TestKernelFilter.main(TestKernelFilter.java:368)
+
+
+    - student identity() returns null
+    - failed on trial 1 of 1000
+
+  * 1000 random 7-by-6 grayscale images
+
+    java.lang.IllegalArgumentException: row index must be between 0 and 5: 6
+
+    Picture.validateRowIndex(Picture.java:434)
+    Picture.get(Picture.java:332)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.identity(KernelFilter.java:22)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:70)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterRandomGrayscalePicture(TestKernelFilter.java:220)
+    TestKernelFilter.testCorrectnessRandomGrayscalePicture(TestKernelFilter.java:316)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:337)
+    TestKernelFilter.main(TestKernelFilter.java:368)
+
+
+    - student identity() returns null
+    - failed on trial 1 of 1000
+
+  * 1000 random 1-by-8 grayscale images
+
+    java.lang.IllegalArgumentException: column index must be between 0 and 0: 7
+
+    Picture.validateColumnIndex(Picture.java:439)
+    Picture.get(Picture.java:331)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.identity(KernelFilter.java:22)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:70)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterRandomGrayscalePicture(TestKernelFilter.java:220)
+    TestKernelFilter.testCorrectnessRandomGrayscalePicture(TestKernelFilter.java:317)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:337)
+    TestKernelFilter.main(TestKernelFilter.java:368)
+
+
+    - student identity() returns null
+    - failed on trial 1 of 1000
+
+  * 1000 random 8-by-1 grayscale images
+
+    java.lang.IllegalArgumentException: row index must be between 0 and 0: 7
+
+    Picture.validateRowIndex(Picture.java:434)
+    Picture.get(Picture.java:332)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.identity(KernelFilter.java:22)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:70)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterRandomGrayscalePicture(TestKernelFilter.java:220)
+    TestKernelFilter.testCorrectnessRandomGrayscalePicture(TestKernelFilter.java:318)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:337)
+    TestKernelFilter.main(TestKernelFilter.java:368)
+
+
+    - student identity() returns null
+    - failed on trial 1 of 1000
+
+  * 1000 random 1-by-1 grayscale images
+==> FAILED
+
+Test 4: check correctness of identity() for random color pictures
+  * 1000 random 10-by-10 color images
+  * 1000 random 12-by-17 color images
+
+    java.lang.IllegalArgumentException: column index must be between 0 and 11: 16
+
+    Picture.validateColumnIndex(Picture.java:439)
+    Picture.get(Picture.java:331)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.identity(KernelFilter.java:22)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:70)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterRandomColorPicture(TestKernelFilter.java:236)
+    TestKernelFilter.testCorrectnessRandomColorPicture(TestKernelFilter.java:328)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:338)
+    TestKernelFilter.main(TestKernelFilter.java:368)
+
+
+    - student identity() returns null
+    - failed on trial 1 of 1000
+
+  * 1000 random 16-by-13 color images
+
+    java.lang.IllegalArgumentException: row index must be between 0 and 12: 15
+
+    Picture.validateRowIndex(Picture.java:434)
+    Picture.get(Picture.java:332)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.identity(KernelFilter.java:22)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:70)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterRandomColorPicture(TestKernelFilter.java:236)
+    TestKernelFilter.testCorrectnessRandomColorPicture(TestKernelFilter.java:329)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:338)
+    TestKernelFilter.main(TestKernelFilter.java:368)
+
+
+    - student identity() returns null
+    - failed on trial 1 of 1000
+
+==> FAILED
+
+Test 5: check correctness of gaussian() for given grayscale PNG files
+[ aborting test since gaussian() method not properly defined ]
+==> FAILED
+
+Test 6: check correctness of gaussian() for given color PNG files
+[ aborting test since gaussian() method not properly defined ]
+==> FAILED
+
+Test 7: check correctness of gaussian() for random grayscale pictures
+[ aborting test since gaussian() method not properly defined ]
+==> FAILED
+
+Test 8: check correctness of gaussian() for random color pictures
+[ aborting test since gaussian() method not properly defined ]
+==> FAILED
+
+Test 9: check correctness of sharpen() for given grayscale PNG files
+  * 6-by-5.png
+
+    java.lang.IllegalArgumentException: row index must be between 0 and 4: 5
+
+    Picture.validateRowIndex(Picture.java:434)
+    Picture.get(Picture.java:332)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.sharpen(KernelFilter.java:29)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:72)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterPNG(TestKernelFilter.java:209)
+    TestKernelFilter.testCorrectnessGrayscalePNG(TestKernelFilter.java:289)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:335)
+    TestKernelFilter.main(TestKernelFilter.java:370)
+
+
+    - student sharpen() returns null
+
+  * baboon-gray.png
+  * sunflowers-gray.png
+
+    java.lang.IllegalArgumentException: row index must be between 0 and 91: 149
+
+    Picture.validateRowIndex(Picture.java:434)
+    Picture.get(Picture.java:332)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.sharpen(KernelFilter.java:29)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:72)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterPNG(TestKernelFilter.java:209)
+    TestKernelFilter.testCorrectnessGrayscalePNG(TestKernelFilter.java:291)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:335)
+    TestKernelFilter.main(TestKernelFilter.java:370)
+
+
+    - student sharpen() returns null
+
+  * earth-gray.png
+  * penguins-gray.png
+
+    java.lang.IllegalArgumentException: row index must be between 0 and 199: 300
+
+    Picture.validateRowIndex(Picture.java:434)
+    Picture.get(Picture.java:332)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.sharpen(KernelFilter.java:29)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:72)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterPNG(TestKernelFilter.java:209)
+    TestKernelFilter.testCorrectnessGrayscalePNG(TestKernelFilter.java:293)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:335)
+    TestKernelFilter.main(TestKernelFilter.java:370)
+
+
+    - student sharpen() returns null
+
+==> FAILED
+
+Test 10: check correctness of sharpen() for given color PNG files
+  * baboon.png
+  * baboon-red.png
+  * baboon-green.png
+  * baboon-blue.png
+  * sunflowers.png
+
+    java.lang.IllegalArgumentException: row index must be between 0 and 91: 149
+
+    Picture.validateRowIndex(Picture.java:434)
+    Picture.get(Picture.java:332)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.sharpen(KernelFilter.java:29)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:72)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterPNG(TestKernelFilter.java:209)
+    TestKernelFilter.testCorrectnessColorPNG(TestKernelFilter.java:304)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:336)
+    TestKernelFilter.main(TestKernelFilter.java:370)
+
+
+    - student sharpen() returns null
+
+  * earth.png
+  * penguins.png
+
+    java.lang.IllegalArgumentException: row index must be between 0 and 199: 300
+
+    Picture.validateRowIndex(Picture.java:434)
+    Picture.get(Picture.java:332)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.sharpen(KernelFilter.java:29)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:72)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterPNG(TestKernelFilter.java:209)
+    TestKernelFilter.testCorrectnessColorPNG(TestKernelFilter.java:306)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:336)
+    TestKernelFilter.main(TestKernelFilter.java:370)
+
+
+    - student sharpen() returns null
+
+==> FAILED
+
+Test 11: check correctness of sharpen() for random grayscale pictures
+  * 1000 random 9-by-9 grayscale images
+  * 1000 random 5-by-8 grayscale images
+
+    java.lang.IllegalArgumentException: column index must be between 0 and 4: 7
+
+    Picture.validateColumnIndex(Picture.java:439)
+    Picture.get(Picture.java:331)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.sharpen(KernelFilter.java:29)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:72)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterRandomGrayscalePicture(TestKernelFilter.java:220)
+    TestKernelFilter.testCorrectnessRandomGrayscalePicture(TestKernelFilter.java:315)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:337)
+    TestKernelFilter.main(TestKernelFilter.java:370)
+
+
+    - student sharpen() returns null
+    - failed on trial 1 of 1000
+
+  * 1000 random 7-by-6 grayscale images
+
+    java.lang.IllegalArgumentException: row index must be between 0 and 5: 6
+
+    Picture.validateRowIndex(Picture.java:434)
+    Picture.get(Picture.java:332)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.sharpen(KernelFilter.java:29)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:72)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterRandomGrayscalePicture(TestKernelFilter.java:220)
+    TestKernelFilter.testCorrectnessRandomGrayscalePicture(TestKernelFilter.java:316)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:337)
+    TestKernelFilter.main(TestKernelFilter.java:370)
+
+
+    - student sharpen() returns null
+    - failed on trial 1 of 1000
+
+  * 1000 random 1-by-8 grayscale images
+
+    java.lang.IllegalArgumentException: column index must be between 0 and 0: 7
+
+    Picture.validateColumnIndex(Picture.java:439)
+    Picture.get(Picture.java:331)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.sharpen(KernelFilter.java:29)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:72)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterRandomGrayscalePicture(TestKernelFilter.java:220)
+    TestKernelFilter.testCorrectnessRandomGrayscalePicture(TestKernelFilter.java:317)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:337)
+    TestKernelFilter.main(TestKernelFilter.java:370)
+
+
+    - student sharpen() returns null
+    - failed on trial 1 of 1000
+
+  * 1000 random 8-by-1 grayscale images
+
+    java.lang.IllegalArgumentException: row index must be between 0 and 0: 7
+
+    Picture.validateRowIndex(Picture.java:434)
+    Picture.get(Picture.java:332)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.sharpen(KernelFilter.java:29)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:72)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterRandomGrayscalePicture(TestKernelFilter.java:220)
+    TestKernelFilter.testCorrectnessRandomGrayscalePicture(TestKernelFilter.java:318)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:337)
+    TestKernelFilter.main(TestKernelFilter.java:370)
+
+
+    - student sharpen() returns null
+    - failed on trial 1 of 1000
+
+  * 1000 random 1-by-1 grayscale images
+==> FAILED
+
+Test 12: check correctness of sharpen() for random color pictures
+  * 1000 random 10-by-10 color images
+  * 1000 random 12-by-17 color images
+
+    java.lang.IllegalArgumentException: column index must be between 0 and 11: 16
+
+    Picture.validateColumnIndex(Picture.java:439)
+    Picture.get(Picture.java:331)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.sharpen(KernelFilter.java:29)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:72)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterRandomColorPicture(TestKernelFilter.java:236)
+    TestKernelFilter.testCorrectnessRandomColorPicture(TestKernelFilter.java:328)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:338)
+    TestKernelFilter.main(TestKernelFilter.java:370)
+
+
+    - student sharpen() returns null
+    - failed on trial 1 of 1000
+
+  * 1000 random 16-by-13 color images
+
+    java.lang.IllegalArgumentException: row index must be between 0 and 12: 15
+
+    Picture.validateRowIndex(Picture.java:434)
+    Picture.get(Picture.java:332)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.sharpen(KernelFilter.java:29)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:72)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterRandomColorPicture(TestKernelFilter.java:236)
+    TestKernelFilter.testCorrectnessRandomColorPicture(TestKernelFilter.java:329)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:338)
+    TestKernelFilter.main(TestKernelFilter.java:370)
+
+
+    - student sharpen() returns null
+    - failed on trial 1 of 1000
+
+==> FAILED
+
+Test 13: check correctness of laplacian() for given grayscale PNG files
+  * 6-by-5.png
+
+    java.lang.IllegalArgumentException: row index must be between 0 and 4: 5
+
+    Picture.validateRowIndex(Picture.java:434)
+    Picture.get(Picture.java:332)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.laplacian(KernelFilter.java:36)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:73)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterPNG(TestKernelFilter.java:209)
+    TestKernelFilter.testCorrectnessGrayscalePNG(TestKernelFilter.java:289)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:335)
+    TestKernelFilter.main(TestKernelFilter.java:371)
+
+
+    - student laplacian() returns null
+
+  * baboon-gray.png
+  * sunflowers-gray.png
+
+    java.lang.IllegalArgumentException: row index must be between 0 and 91: 149
+
+    Picture.validateRowIndex(Picture.java:434)
+    Picture.get(Picture.java:332)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.laplacian(KernelFilter.java:36)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:73)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterPNG(TestKernelFilter.java:209)
+    TestKernelFilter.testCorrectnessGrayscalePNG(TestKernelFilter.java:291)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:335)
+    TestKernelFilter.main(TestKernelFilter.java:371)
+
+
+    - student laplacian() returns null
+
+  * earth-gray.png
+  * penguins-gray.png
+
+    java.lang.IllegalArgumentException: row index must be between 0 and 199: 300
+
+    Picture.validateRowIndex(Picture.java:434)
+    Picture.get(Picture.java:332)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.laplacian(KernelFilter.java:36)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:73)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterPNG(TestKernelFilter.java:209)
+    TestKernelFilter.testCorrectnessGrayscalePNG(TestKernelFilter.java:293)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:335)
+    TestKernelFilter.main(TestKernelFilter.java:371)
+
+
+    - student laplacian() returns null
+
+==> FAILED
+
+Test 14: check correctness of laplacian() for given color PNG files
+  * baboon.png
+  * baboon-red.png
+  * baboon-green.png
+  * baboon-blue.png
+  * sunflowers.png
+
+    java.lang.IllegalArgumentException: row index must be between 0 and 91: 149
+
+    Picture.validateRowIndex(Picture.java:434)
+    Picture.get(Picture.java:332)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.laplacian(KernelFilter.java:36)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:73)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterPNG(TestKernelFilter.java:209)
+    TestKernelFilter.testCorrectnessColorPNG(TestKernelFilter.java:304)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:336)
+    TestKernelFilter.main(TestKernelFilter.java:371)
+
+
+    - student laplacian() returns null
+
+  * earth.png
+  * penguins.png
+
+    java.lang.IllegalArgumentException: row index must be between 0 and 199: 300
+
+    Picture.validateRowIndex(Picture.java:434)
+    Picture.get(Picture.java:332)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.laplacian(KernelFilter.java:36)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:73)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterPNG(TestKernelFilter.java:209)
+    TestKernelFilter.testCorrectnessColorPNG(TestKernelFilter.java:306)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:336)
+    TestKernelFilter.main(TestKernelFilter.java:371)
+
+
+    - student laplacian() returns null
+
+==> FAILED
+
+Test 15: check correctness of laplacian() for random grayscale pictures
+  * 1000 random 9-by-9 grayscale images
+  * 1000 random 5-by-8 grayscale images
+
+    java.lang.IllegalArgumentException: column index must be between 0 and 4: 7
+
+    Picture.validateColumnIndex(Picture.java:439)
+    Picture.get(Picture.java:331)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.laplacian(KernelFilter.java:36)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:73)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterRandomGrayscalePicture(TestKernelFilter.java:220)
+    TestKernelFilter.testCorrectnessRandomGrayscalePicture(TestKernelFilter.java:315)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:337)
+    TestKernelFilter.main(TestKernelFilter.java:371)
+
+
+    - student laplacian() returns null
+    - failed on trial 1 of 1000
+
+  * 1000 random 7-by-6 grayscale images
+
+    java.lang.IllegalArgumentException: row index must be between 0 and 5: 6
+
+    Picture.validateRowIndex(Picture.java:434)
+    Picture.get(Picture.java:332)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.laplacian(KernelFilter.java:36)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:73)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterRandomGrayscalePicture(TestKernelFilter.java:220)
+    TestKernelFilter.testCorrectnessRandomGrayscalePicture(TestKernelFilter.java:316)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:337)
+    TestKernelFilter.main(TestKernelFilter.java:371)
+
+
+    - student laplacian() returns null
+    - failed on trial 1 of 1000
+
+  * 1000 random 1-by-8 grayscale images
+
+    java.lang.IllegalArgumentException: column index must be between 0 and 0: 7
+
+    Picture.validateColumnIndex(Picture.java:439)
+    Picture.get(Picture.java:331)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.laplacian(KernelFilter.java:36)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:73)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterRandomGrayscalePicture(TestKernelFilter.java:220)
+    TestKernelFilter.testCorrectnessRandomGrayscalePicture(TestKernelFilter.java:317)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:337)
+    TestKernelFilter.main(TestKernelFilter.java:371)
+
+
+    - student laplacian() returns null
+    - failed on trial 1 of 1000
+
+  * 1000 random 8-by-1 grayscale images
+
+    java.lang.IllegalArgumentException: row index must be between 0 and 0: 7
+
+    Picture.validateRowIndex(Picture.java:434)
+    Picture.get(Picture.java:332)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.laplacian(KernelFilter.java:36)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:73)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterRandomGrayscalePicture(TestKernelFilter.java:220)
+    TestKernelFilter.testCorrectnessRandomGrayscalePicture(TestKernelFilter.java:318)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:337)
+    TestKernelFilter.main(TestKernelFilter.java:371)
+
+
+    - student laplacian() returns null
+    - failed on trial 1 of 1000
+
+  * 1000 random 1-by-1 grayscale images
+==> FAILED
+
+Test 16: check correctness of laplacian() for random color pictures
+  * 1000 random 10-by-10 color images
+  * 1000 random 12-by-17 color images
+
+    java.lang.IllegalArgumentException: column index must be between 0 and 11: 16
+
+    Picture.validateColumnIndex(Picture.java:439)
+    Picture.get(Picture.java:331)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.laplacian(KernelFilter.java:36)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:73)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterRandomColorPicture(TestKernelFilter.java:236)
+    TestKernelFilter.testCorrectnessRandomColorPicture(TestKernelFilter.java:328)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:338)
+    TestKernelFilter.main(TestKernelFilter.java:371)
+
+
+    - student laplacian() returns null
+    - failed on trial 1 of 1000
+
+  * 1000 random 16-by-13 color images
+
+    java.lang.IllegalArgumentException: row index must be between 0 and 12: 15
+
+    Picture.validateRowIndex(Picture.java:434)
+    Picture.get(Picture.java:332)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.laplacian(KernelFilter.java:36)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:73)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterRandomColorPicture(TestKernelFilter.java:236)
+    TestKernelFilter.testCorrectnessRandomColorPicture(TestKernelFilter.java:329)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:338)
+    TestKernelFilter.main(TestKernelFilter.java:371)
+
+
+    - student laplacian() returns null
+    - failed on trial 1 of 1000
+
+==> FAILED
+
+Test 17: check correctness of emboss() for given grayscale PNG files
+  * 6-by-5.png
+
+    java.lang.IllegalArgumentException: row index must be between 0 and 4: 5
+
+    Picture.validateRowIndex(Picture.java:434)
+    Picture.get(Picture.java:332)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.emboss(KernelFilter.java:43)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:74)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterPNG(TestKernelFilter.java:209)
+    TestKernelFilter.testCorrectnessGrayscalePNG(TestKernelFilter.java:289)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:335)
+    TestKernelFilter.main(TestKernelFilter.java:372)
+
+
+    - student emboss() returns null
+
+  * baboon-gray.png
+  * sunflowers-gray.png
+
+    java.lang.IllegalArgumentException: row index must be between 0 and 91: 149
+
+    Picture.validateRowIndex(Picture.java:434)
+    Picture.get(Picture.java:332)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.emboss(KernelFilter.java:43)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:74)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterPNG(TestKernelFilter.java:209)
+    TestKernelFilter.testCorrectnessGrayscalePNG(TestKernelFilter.java:291)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:335)
+    TestKernelFilter.main(TestKernelFilter.java:372)
+
+
+    - student emboss() returns null
+
+  * earth-gray.png
+  * penguins-gray.png
+
+    java.lang.IllegalArgumentException: row index must be between 0 and 199: 300
+
+    Picture.validateRowIndex(Picture.java:434)
+    Picture.get(Picture.java:332)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.emboss(KernelFilter.java:43)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:74)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterPNG(TestKernelFilter.java:209)
+    TestKernelFilter.testCorrectnessGrayscalePNG(TestKernelFilter.java:293)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:335)
+    TestKernelFilter.main(TestKernelFilter.java:372)
+
+
+    - student emboss() returns null
+
+==> FAILED
+
+Test 18: check correctness of emboss() for given color PNG files
+  * baboon.png
+  * baboon-red.png
+  * baboon-green.png
+  * baboon-blue.png
+  * sunflowers.png
+
+    java.lang.IllegalArgumentException: row index must be between 0 and 91: 149
+
+    Picture.validateRowIndex(Picture.java:434)
+    Picture.get(Picture.java:332)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.emboss(KernelFilter.java:43)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:74)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterPNG(TestKernelFilter.java:209)
+    TestKernelFilter.testCorrectnessColorPNG(TestKernelFilter.java:304)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:336)
+    TestKernelFilter.main(TestKernelFilter.java:372)
+
+
+    - student emboss() returns null
+
+  * earth.png
+  * penguins.png
+
+    java.lang.IllegalArgumentException: row index must be between 0 and 199: 300
+
+    Picture.validateRowIndex(Picture.java:434)
+    Picture.get(Picture.java:332)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.emboss(KernelFilter.java:43)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:74)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterPNG(TestKernelFilter.java:209)
+    TestKernelFilter.testCorrectnessColorPNG(TestKernelFilter.java:306)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:336)
+    TestKernelFilter.main(TestKernelFilter.java:372)
+
+
+    - student emboss() returns null
+
+==> FAILED
+
+Test 19: check correctness of emboss() for random grayscale pictures
+  * 1000 random 9-by-9 grayscale images
+  * 1000 random 5-by-8 grayscale images
+
+    java.lang.IllegalArgumentException: column index must be between 0 and 4: 7
+
+    Picture.validateColumnIndex(Picture.java:439)
+    Picture.get(Picture.java:331)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.emboss(KernelFilter.java:43)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:74)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterRandomGrayscalePicture(TestKernelFilter.java:220)
+    TestKernelFilter.testCorrectnessRandomGrayscalePicture(TestKernelFilter.java:315)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:337)
+    TestKernelFilter.main(TestKernelFilter.java:372)
+
+
+    - student emboss() returns null
+    - failed on trial 1 of 1000
+
+  * 1000 random 7-by-6 grayscale images
+
+    java.lang.IllegalArgumentException: row index must be between 0 and 5: 6
+
+    Picture.validateRowIndex(Picture.java:434)
+    Picture.get(Picture.java:332)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.emboss(KernelFilter.java:43)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:74)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterRandomGrayscalePicture(TestKernelFilter.java:220)
+    TestKernelFilter.testCorrectnessRandomGrayscalePicture(TestKernelFilter.java:316)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:337)
+    TestKernelFilter.main(TestKernelFilter.java:372)
+
+
+    - student emboss() returns null
+    - failed on trial 1 of 1000
+
+  * 1000 random 1-by-8 grayscale images
+
+    java.lang.IllegalArgumentException: column index must be between 0 and 0: 7
+
+    Picture.validateColumnIndex(Picture.java:439)
+    Picture.get(Picture.java:331)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.emboss(KernelFilter.java:43)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:74)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterRandomGrayscalePicture(TestKernelFilter.java:220)
+    TestKernelFilter.testCorrectnessRandomGrayscalePicture(TestKernelFilter.java:317)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:337)
+    TestKernelFilter.main(TestKernelFilter.java:372)
+
+
+    - student emboss() returns null
+    - failed on trial 1 of 1000
+
+  * 1000 random 8-by-1 grayscale images
+
+    java.lang.IllegalArgumentException: row index must be between 0 and 0: 7
+
+    Picture.validateRowIndex(Picture.java:434)
+    Picture.get(Picture.java:332)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.emboss(KernelFilter.java:43)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:74)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterRandomGrayscalePicture(TestKernelFilter.java:220)
+    TestKernelFilter.testCorrectnessRandomGrayscalePicture(TestKernelFilter.java:318)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:337)
+    TestKernelFilter.main(TestKernelFilter.java:372)
+
+
+    - student emboss() returns null
+    - failed on trial 1 of 1000
+
+  * 1000 random 1-by-1 grayscale images
+==> FAILED
+
+Test 20: check correctness of emboss() for random color pictures
+  * 1000 random 10-by-10 color images
+  * 1000 random 12-by-17 color images
+
+    java.lang.IllegalArgumentException: column index must be between 0 and 11: 16
+
+    Picture.validateColumnIndex(Picture.java:439)
+    Picture.get(Picture.java:331)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.emboss(KernelFilter.java:43)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:74)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterRandomColorPicture(TestKernelFilter.java:236)
+    TestKernelFilter.testCorrectnessRandomColorPicture(TestKernelFilter.java:328)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:338)
+    TestKernelFilter.main(TestKernelFilter.java:372)
+
+
+    - student emboss() returns null
+    - failed on trial 1 of 1000
+
+  * 1000 random 16-by-13 color images
+
+    java.lang.IllegalArgumentException: row index must be between 0 and 12: 15
+
+    Picture.validateRowIndex(Picture.java:434)
+    Picture.get(Picture.java:332)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.emboss(KernelFilter.java:43)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:74)
+    ...
+    TestKernelFilter.isCorrectFilter(TestKernelFilter.java:251)
+    TestKernelFilter.checkCorrectnessFilterRandomColorPicture(TestKernelFilter.java:236)
+    TestKernelFilter.testCorrectnessRandomColorPicture(TestKernelFilter.java:329)
+    TestKernelFilter.testCorrectness(TestKernelFilter.java:338)
+    TestKernelFilter.main(TestKernelFilter.java:372)
+
+
+    - student emboss() returns null
+    - failed on trial 1 of 1000
+
+==> FAILED
+
+Test 21: check correctness of motionBlur() for given grayscale PNG files
+  * 6-by-5.png
+    - motionBlur() returns original picture
+    - all pixels in Picture returned are the same as in the original Picture
+
+  * baboon-gray.png
+    - motionBlur() returns original picture
+    - all pixels in Picture returned are the same as in the original Picture
+
+  * sunflowers-gray.png
+    - motionBlur() returns original picture
+    - all pixels in Picture returned are the same as in the original Picture
+
+  * earth-gray.png
+    - motionBlur() returns original picture
+    - all pixels in Picture returned are the same as in the original Picture
+
+  * penguins-gray.png
+    - motionBlur() returns original picture
+    - all pixels in Picture returned are the same as in the original Picture
+
+==> FAILED
+
+Test 22: check correctness of motionBlur() for given color PNG files
+  * baboon.png
+    - motionBlur() returns original picture
+    - all pixels in Picture returned are the same as in the original Picture
+
+  * baboon-red.png
+    - motionBlur() returns original picture
+    - all pixels in Picture returned are the same as in the original Picture
+
+  * baboon-green.png
+    - motionBlur() returns original picture
+    - all pixels in Picture returned are the same as in the original Picture
+
+  * baboon-blue.png
+    - motionBlur() returns original picture
+    - all pixels in Picture returned are the same as in the original Picture
+
+  * sunflowers.png
+    - motionBlur() returns original picture
+    - all pixels in Picture returned are the same as in the original Picture
+
+  * earth.png
+    - motionBlur() returns original picture
+    - all pixels in Picture returned are the same as in the original Picture
+
+  * penguins.png
+    - motionBlur() returns original picture
+    - all pixels in Picture returned are the same as in the original Picture
+
+==> FAILED
+
+Test 23: check correctness of motionBlur() for random grayscale pictures
+  * 1000 random 9-by-9 grayscale images
+    - motionBlur() returns original picture
+    - all pixels in Picture returned are the same as in the original Picture
+    - failed on trial 1 of 1000
+
+  * 1000 random 5-by-8 grayscale images
+    - motionBlur() returns original picture
+    - all pixels in Picture returned are the same as in the original Picture
+    - failed on trial 1 of 1000
+
+  * 1000 random 7-by-6 grayscale images
+    - motionBlur() returns original picture
+    - all pixels in Picture returned are the same as in the original Picture
+    - failed on trial 1 of 1000
+
+  * 1000 random 1-by-8 grayscale images
+    - motionBlur() returns original picture
+    - all pixels in Picture returned are the same as in the original Picture
+    - failed on trial 1 of 1000
+
+  * 1000 random 8-by-1 grayscale images
+    - motionBlur() returns original picture
+    - all pixels in Picture returned are the same as in the original Picture
+    - failed on trial 1 of 1000
+
+  * 1000 random 1-by-1 grayscale images
+==> FAILED
+
+Test 24: check correctness of motionBlur() for random color pictures
+  * 1000 random 10-by-10 color images
+    - motionBlur() returns original picture
+    - all pixels in Picture returned are the same as in the original Picture
+    - failed on trial 1 of 1000
+
+  * 1000 random 12-by-17 color images
+    - motionBlur() returns original picture
+    - all pixels in Picture returned are the same as in the original Picture
+    - failed on trial 1 of 1000
+
+  * 1000 random 16-by-13 color images
+    - motionBlur() returns original picture
+    - all pixels in Picture returned are the same as in the original Picture
+    - failed on trial 1 of 1000
+
+==> FAILED
+
+Test 25: check that identity() does not mutate Picture argument
+  * baboon.png
+  * sunflowers.png
+
+    java.lang.IllegalArgumentException: row index must be between 0 and 91: 149
+
+    Picture.validateRowIndex(Picture.java:434)
+    Picture.get(Picture.java:332)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.identity(KernelFilter.java:22)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:70)
+    TestKernelFilter.checkFilterDoesNotMutatePicturePNG(TestKernelFilter.java:269)
+    TestKernelFilter.testMutate(TestKernelFilter.java:346)
+    TestKernelFilter.main(TestKernelFilter.java:375)
+
+
+  * earth.png
+  * penguins.png
+
+    java.lang.IllegalArgumentException: row index must be between 0 and 199: 300
+
+    Picture.validateRowIndex(Picture.java:434)
+    Picture.get(Picture.java:332)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.identity(KernelFilter.java:22)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:70)
+    TestKernelFilter.checkFilterDoesNotMutatePicturePNG(TestKernelFilter.java:269)
+    TestKernelFilter.testMutate(TestKernelFilter.java:348)
+    TestKernelFilter.main(TestKernelFilter.java:375)
+
+
+==> FAILED
+
+Test 26: check that gaussian() does not mutate Picture argument
+[ aborting test since gaussian() method not properly defined ]
+==> FAILED
+
+Test 27: check that sharpen() does not mutate Picture argument
+  * baboon.png
+  * sunflowers.png
+
+    java.lang.IllegalArgumentException: row index must be between 0 and 91: 149
+
+    Picture.validateRowIndex(Picture.java:434)
+    Picture.get(Picture.java:332)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.sharpen(KernelFilter.java:29)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:72)
+    TestKernelFilter.checkFilterDoesNotMutatePicturePNG(TestKernelFilter.java:269)
+    TestKernelFilter.testMutate(TestKernelFilter.java:346)
+    TestKernelFilter.main(TestKernelFilter.java:377)
+
+
+  * earth.png
+  * penguins.png
+
+    java.lang.IllegalArgumentException: row index must be between 0 and 199: 300
+
+    Picture.validateRowIndex(Picture.java:434)
+    Picture.get(Picture.java:332)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.sharpen(KernelFilter.java:29)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:72)
+    TestKernelFilter.checkFilterDoesNotMutatePicturePNG(TestKernelFilter.java:269)
+    TestKernelFilter.testMutate(TestKernelFilter.java:348)
+    TestKernelFilter.main(TestKernelFilter.java:377)
+
+
+==> FAILED
+
+Test 28: check that laplacian() does not mutate Picture argument
+  * baboon.png
+  * sunflowers.png
+
+    java.lang.IllegalArgumentException: row index must be between 0 and 91: 149
+
+    Picture.validateRowIndex(Picture.java:434)
+    Picture.get(Picture.java:332)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.laplacian(KernelFilter.java:36)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:73)
+    TestKernelFilter.checkFilterDoesNotMutatePicturePNG(TestKernelFilter.java:269)
+    TestKernelFilter.testMutate(TestKernelFilter.java:346)
+    TestKernelFilter.main(TestKernelFilter.java:378)
+
+
+  * earth.png
+  * penguins.png
+
+    java.lang.IllegalArgumentException: row index must be between 0 and 199: 300
+
+    Picture.validateRowIndex(Picture.java:434)
+    Picture.get(Picture.java:332)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.laplacian(KernelFilter.java:36)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:73)
+    TestKernelFilter.checkFilterDoesNotMutatePicturePNG(TestKernelFilter.java:269)
+    TestKernelFilter.testMutate(TestKernelFilter.java:348)
+    TestKernelFilter.main(TestKernelFilter.java:378)
+
+
+==> FAILED
+
+Test 29: check that emboss() does not mutate Picture argument
+  * baboon.png
+  * sunflowers.png
+
+    java.lang.IllegalArgumentException: row index must be between 0 and 91: 149
+
+    Picture.validateRowIndex(Picture.java:434)
+    Picture.get(Picture.java:332)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.emboss(KernelFilter.java:43)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:74)
+    TestKernelFilter.checkFilterDoesNotMutatePicturePNG(TestKernelFilter.java:269)
+    TestKernelFilter.testMutate(TestKernelFilter.java:346)
+    TestKernelFilter.main(TestKernelFilter.java:379)
+
+
+  * earth.png
+  * penguins.png
+
+    java.lang.IllegalArgumentException: row index must be between 0 and 199: 300
+
+    Picture.validateRowIndex(Picture.java:434)
+    Picture.get(Picture.java:332)
+    KernelFilter.kernel(KernelFilter.java:76)
+    KernelFilter.emboss(KernelFilter.java:43)
+    TestKernelFilter.applyStudentFilter(TestKernelFilter.java:74)
+    TestKernelFilter.checkFilterDoesNotMutatePicturePNG(TestKernelFilter.java:269)
+    TestKernelFilter.testMutate(TestKernelFilter.java:348)
+    TestKernelFilter.main(TestKernelFilter.java:379)
+
+
+==> FAILED
+
+Test 30: check that motionBlur() does not mutate Picture argument
+  * baboon.png
+  * sunflowers.png
+  * earth.png
+  * penguins.png
+==> passed
+
+
+KernelFilter Total: 1/30 tests passed!
+
+
+================================================================
