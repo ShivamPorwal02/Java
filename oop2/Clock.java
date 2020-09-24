@@ -25,7 +25,7 @@ public class Clock {
 
     public Clock(String s) {
         if (s.length() > 4) {
-            throw new IllegalArgumentException("not in length")
+            throw new IllegalArgumentException("not in length");
         }
         if (s.indexOf(":") != 2) {
             throw new IllegalArgumentException("Not in the format");
@@ -58,7 +58,6 @@ public class Clock {
     public void tic() {
         if (Integer.parseInt(min) < 59) {
             int x = Integer.parseInt(min);
-            System.out.println("hi");
             x += 1;
             min = Integer.toString(x);
         }
@@ -67,9 +66,7 @@ public class Clock {
             min = s;
             if (Integer.parseInt(hour) < 23) {
                 int y = Integer.parseInt(hour);
-                System.out.println(y);
                 y += 1;
-                System.out.println(y);
                 hour = String.format("%02d", y);
 
             }
@@ -91,7 +88,7 @@ public class Clock {
     }
 
     public static void main(String[] args) {
-        Clock c = new Clock(1, 59);
+        Clock c = new Clock(3, 59);
         System.out.println(c);
         //c.toc(30);
         c.tic();
