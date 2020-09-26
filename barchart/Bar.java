@@ -7,9 +7,9 @@
 import java.util.Arrays;
 
 public class Bar implements Comparable<Bar> {
-    private String name;
-    private int value;
-    private String category;
+    private final String name;
+    private final int value;
+    private final String category;
 
     public Bar(String name, int value, String category) {
         if (name == null) {
@@ -40,7 +40,7 @@ public class Bar implements Comparable<Bar> {
 
     public int compareTo(Bar that) {
         if (that == null) {
-            throw new IllegalArgumentException("Argument is null");
+            throw new NullPointerException("Argument is null");
         }
         if (value - that.value < 0) {
             return -1;
@@ -68,8 +68,8 @@ public class Bar implements Comparable<Bar> {
 
         // sort in ascending order by weight
         Arrays.sort(bars);
-        /*for (int i = 0; i < bars.length; i++) {
+        /* for (int i = 0; i < bars.length; i++) {
             System.out.print(bars[i].getValue() + " ");
-        }*/
+        } */
     }
 }
