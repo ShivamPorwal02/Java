@@ -8,9 +8,10 @@ import java.util.Arrays;
 
 public class BarChartRacer {
     public static void main(String[] args) {
+        StdAudio.play("soundtrackA.wav");
         StdDraw.setCanvasSize(1000, 700);
         StdDraw.enableDoubleBuffering();
-        
+
         String name = args[0];
         int k = Integer.parseInt(args[1]);
         In in = new In(name);
